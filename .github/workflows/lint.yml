@@ -1,0 +1,19 @@
+# .github/workflows/lint.yml
+
+name: Lint
+
+on:
+pull_request:
+branches:
+  - main
+
+jobs:
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependancies
+        uses: bundle install
+
+      - name: Code Checkout
+        uses: make lint
