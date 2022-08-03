@@ -4,8 +4,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Install dependancies
-        run: bundle install
+      - name: Install rubocop
+        run: gem install rubocop
     
       - name: Run linter
         run: make lint
