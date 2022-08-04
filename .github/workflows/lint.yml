@@ -10,4 +10,4 @@ jobs:
         with:
           ruby-version: '3.0.2'
       - run: bundle install
-      - run: rubocop
+      - run: rubocop -a
