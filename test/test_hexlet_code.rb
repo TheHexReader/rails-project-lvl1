@@ -13,6 +13,16 @@ class HexletCodeTest < Minitest::Test
     assert_equal HexletCode::Tag.build('label', for: 'email') { 'Email' }, '<label for="email">Email</label>'
     assert_equal HexletCode::Tag.build('div'), '<div></div>'
   end
+
+  def test_form_for
+    user_struct = Struct.new(:name, :job, keyword_init: true)
+    user = user_struct.new name: 'rob'
+
+    assert_equal (HexletCode.form_for user do |f|
+                  end), "<form action=\"#\" method=\"post\">\n</form>"
+    assert_equal (HexletCode.form_for user, url: '/users' do |f|
+                  end), "<form action=\"/users\" method=\"post\">\n</form>"
+  end
 end
 
 test_methods = HexletCodeTest.new({}).methods.select { |method| method.start_with? 'test_' }

@@ -2,6 +2,7 @@
 
 require_relative 'hexlet_code/version'
 
+# HexletCode module
 module HexletCode
   # Tag building
   module Tag
@@ -13,5 +14,9 @@ module HexletCode
       end
       out
     end
+  end
+
+  def self.form_for(_, **args)
+    "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">\n</form>"
   end
 end
