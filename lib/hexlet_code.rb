@@ -17,7 +17,7 @@ module HexletCode
   end
 
   def self.form_for(item, **args)
-    @struct_class = item
+    @struct = item
     @out = []
     @out << "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">"
 
@@ -29,9 +29,15 @@ module HexletCode
 
   def self.input(name, **args)
     if args[:as].nil?
-      @out << "  <input name=\"#{name}\" type=\"text\" value=\"#{@struct_class[name]}\">"
+      @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
+      @out << "  <input name=\"#{name}\" type=\"text\"#{@struct[name].nil? ? '' : " value=\"#{@struct[name]}\""}>"
     elsif args[:as] == :text
-      @out << "  <textarea cols=\"20\" rows=\"40\" name=\"#{name}\">#{@struct_class[name]}</textarea>"
+      @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
+      @out << "  <textarea cols=\"20\" rows=\"40\" name=\"#{name}\">#{@struct[name]}</textarea>"
     end
+  end
+
+  def self.submit
+    @out << '  <input name="commit" type="submit" value="Save">'
   end
 end

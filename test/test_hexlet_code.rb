@@ -31,10 +31,24 @@ class HexletCodeTest < Minitest::Test
     assert_equal (HexletCode.form_for user do |f|
                     f.input :name
                     f.input :job, as: :text
-                  end), "<form action=\"#\" method=\"post\">
-  <input name=\"name\" type=\"text\" value=\"rob\">
+                  end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
+  <input name=\"name\" type=\"text\" value=\"rob\">\n  <label for=\"job\">Job</label>
   <textarea cols=\"20\" rows=\"40\" name=\"job\">hexlet</textarea>
 </form>"
+  end
+
+  def test_form_for_submit
+    user_struct = Struct.new(:name, :job, keyword_init: true)
+    user = user_struct.new job: 'hexlet'
+
+    assert_equal (HexletCode.form_for user do |f|
+      f.input :name
+      f.input :job
+      f.submit
+    end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
+  <input name=\"name\" type=\"text\">\n  <label for=\"job\">Job</label>
+  <input name=\"job\" type=\"text\" value=\"hexlet\">
+  <input name=\"commit\" type=\"submit\" value=\"Save\">\n</form>"
   end
 end
 
