@@ -16,7 +16,22 @@ module HexletCode
     end
   end
 
-  def self.form_for(_, **args)
-    "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">\n</form>"
+  def self.form_for(item, **args)
+    @struct_class = item
+    @out = []
+    @out << "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">"
+
+    yield(HexletCode)
+
+    @out << '</form>'
+    @out * "\n"
+  end
+
+  def self.input(name, **args)
+    if args[:as].nil?
+      @out << "  <input name=\"#{name}\" type=\"text\" value=\"#{@struct_class[name]}\">"
+    elsif args[:as] == :text
+      @out << "  <textarea cols=\"20\" rows=\"40\" name=\"#{name}\">#{@struct_class[name]}</textarea>"
+    end
   end
 end

@@ -23,6 +23,19 @@ class HexletCodeTest < Minitest::Test
     assert_equal (HexletCode.form_for user, url: '/users' do |f|
                   end), "<form action=\"/users\" method=\"post\">\n</form>"
   end
+
+  def test_form_for_input
+    user_struct = Struct.new(:name, :job, :gender, keyword_init: true)
+    user = user_struct.new name: 'rob', job: 'hexlet', gender: 'm'
+
+    assert_equal (HexletCode.form_for user do |f|
+                    f.input :name
+                    f.input :job, as: :text
+                  end), "<form action=\"#\" method=\"post\">
+  <input name=\"name\" type=\"text\" value=\"rob\">
+  <textarea cols=\"20\" rows=\"40\" name=\"job\">hexlet</textarea>
+</form>"
+  end
 end
 
 test_methods = HexletCodeTest.new({}).methods.select { |method| method.start_with? 'test_' }
