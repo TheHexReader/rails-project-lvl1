@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
-autoload(:Tag, './lib/hexlet_code/tag.rb')
 require_relative 'hexlet_code/version'
-require_relative 'hexlet_code/tag'
 
 # HexletCode module
 module HexletCode
+  # Tag building
+  module Tag
+    def self.build(tag, **attr)
+      out = "<#{tag}#{attr.empty? ? '' : " #{(attr.map { |key, item| "#{key}=\"#{item}\"" }).join(' ')}"}>"
+      unless %w[br img input].include? tag
+        tag_inner_text = yield if block_given?
+        out = "#{out}#{tag_inner_text}</#{tag}>"
+      end
+      out
+    end
+  end
+
   def self.form_for(item, **args)
     @struct = item
     @out = []
