@@ -30,7 +30,8 @@ module HexletCode
   def self.input(name, **args)
     if args[:as].nil?
       @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
-      @out << "  <input name=\"#{name}\" type=\"text\"#{@struct[name].nil? ? '' : " value=\"#{@struct[name]}\""}>"
+      @out << "  <input class=\"user-input\" name=\"#{name}\" type=\"text\"#{
+        @struct[name].nil? ? '' : " value=\"#{@struct[name]}\""}>"
     elsif args[:as] == :text
       @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
       @out << "  <textarea cols=\"20\" rows=\"40\" name=\"#{name}\">#{@struct[name]}</textarea>"

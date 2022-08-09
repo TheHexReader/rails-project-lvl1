@@ -32,7 +32,7 @@ class HexletCodeTest < Minitest::Test
                     f.input :name
                     f.input :job, as: :text
                   end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
-  <input name=\"name\" type=\"text\" value=\"rob\">\n  <label for=\"job\">Job</label>
+  <input class=\"user-input\" name=\"name\" type=\"text\" value=\"rob\">\n  <label for=\"job\">Job</label>
   <textarea cols=\"20\" rows=\"40\" name=\"job\">hexlet</textarea>
 </form>"
   end
@@ -46,8 +46,8 @@ class HexletCodeTest < Minitest::Test
       f.input :job
       f.submit
     end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
-  <input name=\"name\" type=\"text\">\n  <label for=\"job\">Job</label>
-  <input name=\"job\" type=\"text\" value=\"hexlet\">
+  <input class=\"user-input\" name=\"name\" type=\"text\">\n  <label for=\"job\">Job</label>
+  <input class=\"user-input\" name=\"job\" type=\"text\" value=\"hexlet\">
   <input name=\"commit\" type=\"submit\" value=\"Save\">\n</form>"
   end
 end
