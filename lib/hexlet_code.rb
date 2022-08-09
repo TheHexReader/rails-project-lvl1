@@ -39,6 +39,6 @@ module HexletCode
   end
 
   def self.submit(*value)
-    @out << "  <input name=\"commit\" type=\"submit\" value=\"#{value.nil? ? value[0] : 'Save'}\">"
+    @out << "  <input name=\"commit\" type=\"submit\" value=\"#{value[0].nil? ? 'Save' : value[0]}\">"
   end
 end
