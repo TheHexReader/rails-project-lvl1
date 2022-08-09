@@ -34,7 +34,7 @@ module HexletCode
         @struct[name].nil? ? '' : " value=\"#{@struct[name]}\""}>"
     elsif args[:as] == :text
       @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
-      @out << "  <textarea cols=\"20\" rows=\"40\" name=\"#{name}\">#{@struct[name]}</textarea>"
+      @out << "  <textarea cols=\"50\" rows=\"50\" name=\"#{name}\">#{@struct[name]}</textarea>"
     end
   end
 

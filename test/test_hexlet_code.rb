@@ -33,7 +33,7 @@ class HexletCodeTest < Minitest::Test
                     f.input :job, as: :text
                   end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
   <input class=\"user-input\" name=\"name\" type=\"text\" value=\"rob\">\n  <label for=\"job\">Job</label>
-  <textarea cols=\"20\" rows=\"40\" name=\"job\">hexlet</textarea>
+  <textarea cols=\"50\" rows=\"50\" name=\"job\">hexlet</textarea>
 </form>"
   end
 
