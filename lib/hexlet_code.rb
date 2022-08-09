@@ -38,7 +38,7 @@ module HexletCode
     end
   end
 
-  def self.submit
+  def self.submit(name)
     @out << '  <input name="commit" type="submit" value="Save">'
   end
 end
