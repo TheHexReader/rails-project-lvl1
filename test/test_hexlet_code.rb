@@ -19,8 +19,10 @@ class HexletCodeTest < Minitest::Test
     user = user_struct.new name: 'rob'
 
     assert_equal (HexletCode.form_for user do |f|
+                    f
                   end), "<form action=\"#\" method=\"post\">\n</form>"
     assert_equal (HexletCode.form_for user, url: '/users' do |f|
+                    f
                   end), "<form action=\"/users\" method=\"post\">\n</form>"
   end
 
