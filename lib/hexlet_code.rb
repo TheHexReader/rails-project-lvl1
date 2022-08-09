@@ -17,8 +17,6 @@ module HexletCode
   end
 
   def self.form_for(item, **args)
-    public_send(:test_method)
-
     @struct = item
     @out = []
     @out << "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">"
@@ -30,6 +28,7 @@ module HexletCode
   end
 
   def self.input(name, **args)
+    callback(name)
     if args[:as].nil?
       @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
       @out << "  <input class=\"user-input\" name=\"#{name}\" type=\"text\"#{
@@ -44,5 +43,7 @@ module HexletCode
     @out << "  <input name=\"commit\" type=\"submit\" value=\"#{value[0].nil? ? 'Save' : value[0]}\">"
   end
 
-  def self.test_method; end
+  def self.callback(name)
+    @struct.public_send(name)
+  end
 end
