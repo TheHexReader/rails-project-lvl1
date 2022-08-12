@@ -1,4 +1,6 @@
 [![hexlet-check](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/hexlet-check.yml)
+[![test](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/test.yml/badge.svg)](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/test.yml)
+[![lint](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/lint.yml/badge.svg)](https://github.com/TheHexReader/rails-project-lvl1/actions/workflows/lint.yml)
 
 # HexletCode
 
@@ -24,7 +26,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To create form, use:
+
+```ruby
+HexletCode.form_for user do |f|
+  f.input :name                   # To create an input field 
+  f.input :description, as: :text # To create a textarea field
+  f.submit                        # To create a submit button
+end
+```
+
+To create individual html tags, use:
+
+```ruby
+HexletCode::Tag.build('p', class: 'paragraph', id: 'main-paragraph') { 'Content of tag!' }
+
+=> "<p class=\"paragraph\" id=\"main-paragraph\">Content of tag!</p>"
+```
 
 ## Development
 
@@ -34,4 +52,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code.
+Bug reports and pull requests are welcome on GitHub at https://github.com/thehexreader/hexlet_code.

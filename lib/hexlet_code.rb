@@ -1,49 +1,49 @@
 # frozen_string_literal: true
 
 require_relative 'hexlet_code/version'
+require_relative 'hexlet_code/tag'
 
 # HexletCode module
 module HexletCode
-  # Tag building
-  module Tag
-    def self.build(tag, **attr)
-      out = "<#{tag}#{attr.empty? ? '' : " #{(attr.map { |key, item| "#{key}=\"#{item}\"" }).join(' ')}"}>"
-      unless %w[br img input].include? tag
-        tag_inner_text = yield if block_given?
-        out = "#{out}#{tag_inner_text}</#{tag}>"
-      end
-      out
-    end
-  end
-
   def self.form_for(item, **args)
-    @struct = item
-    @out = []
-    @out << "<form action=\"#{args[:url].nil? ? '#' : args[:url]}\" method=\"post\">"
+    @entity = item
+    @result = []
+
+    args_for_form_build = { **args.except(:url), action: args[:url].nil? ? '#' : args[:url], method: 'post' }
+    @result << HexletCode::Tag.build('form', **args_for_form_build)[0..-8]
 
     yield(HexletCode)
 
-    @out << '</form>'
-    @out * "\n"
+    @result << '</form>'
+    @result.join("\n")
   end
 
   def self.input(name, **args)
     callback(name)
+    @result << "  #{HexletCode::Tag.build('label', for: name) { name.to_s.capitalize }}"
     if args[:as].nil?
-      @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
-      @out << "  <input class=\"user-input\" name=\"#{name}\" type=\"text\"#{
-        @struct[name].nil? ? '' : " value=\"#{@struct[name]}\""}>"
+      process_input_as_input(name)
     elsif args[:as] == :text
-      @out << "  <label for=\"#{name}\">#{name.to_s.capitalize}</label>"
-      @out << "  <textarea cols=\"50\" rows=\"50\" name=\"#{name}\">#{@struct[name]}</textarea>"
+      process_input_as_text(name)
     end
   end
 
   def self.submit(*value)
-    @out << "  <input name=\"commit\" type=\"submit\" value=\"#{value[0].nil? ? 'Save' : value[0]}\">"
+    args_for_submit_build = { name: 'commit', type: 'submit', value: value[0].nil? ? 'Save' : value[0] }
+    @result << "  #{HexletCode::Tag.build('input', **args_for_submit_build)}"
   end
 
   def self.callback(name)
-    @struct.public_send(name)
+    @entity.public_send(name)
+  end
+
+  def self.process_input_as_input(name)
+    args_for_input_build = { class: 'user-input', name: name, type: 'text' }
+    args_for_input_build[:value] = @entity[name] unless @entity[name].nil?
+    @result << "  #{HexletCode::Tag.build('input', **args_for_input_build)}"
+  end
+
+  def self.process_input_as_text(name)
+    @result << "  #{HexletCode::Tag.build('textarea', cols: '50', rows: '50', name: name) { @entity[name] }}"
   end
 end
