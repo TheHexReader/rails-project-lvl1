@@ -22,13 +22,13 @@ module HexletCode
   end
 
   def self.process_input_as_input(name)
-    args_for_input_build = { class: 'user-input', name: name, type: 'text' }
+    args_for_input_build = { class: 'user-input', name:, type: 'text' }
     args_for_input_build[:value] = @entity[name] unless @entity[name].nil?
     @result << HexletCode::Tag.build('input', **args_for_input_build)
   end
 
   def self.process_input_as_text(name)
-    @result << HexletCode::Tag.build('textarea', cols: '50', rows: '50', name: name) { @entity[name] }
+    @result << HexletCode::Tag.build('textarea', cols: '50', rows: '50', name:) { @entity[name] }
   end
 
   def self.build_form(inner_of_form, args)
