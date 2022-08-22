@@ -29,7 +29,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job, as: :text
     end
 
-    expected = File.open('./test/fixtures/hexlet_code_1.txt').read
+    expected = File.read('./test/fixtures/hexlet_code_1.txt')
 
     assert_equal result, expected
   end
@@ -44,7 +44,7 @@ class HexletCodeTest < Minitest::Test
       f.submit
     end
 
-    expected = File.open('./test/fixtures/hexlet_code_2.txt').read
+    expected = File.read('./test/fixtures/hexlet_code_2.txt')
 
     assert_equal result, expected
   end
