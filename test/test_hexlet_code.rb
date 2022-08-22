@@ -5,54 +5,50 @@ require_relative '../lib/hexlet_code'
 
 # Test Hexlet_code
 class HexletCodeTest < Minitest::Test
-  def test_tag_build
-    assert_equal HexletCode::Tag.build('br'), '<br>'
-    assert_equal HexletCode::Tag.build('img', src: 'path/to/image'), '<img src="path/to/image">'
-    assert_equal HexletCode::Tag.build('input', type: 'submit', value: 'Save'), '<input type="submit" value="Save">'
-    assert_equal HexletCode::Tag.build('label') { 'Email' }, '<label>Email</label>'
-    assert_equal HexletCode::Tag.build('label', for: 'email') { 'Email' }, '<label for="email">Email</label>'
-    assert_equal HexletCode::Tag.build('div'), '<div></div>'
-  end
-
   def test_form_for
     user_struct = Struct.new(:name, :job, keyword_init: true)
     user = user_struct.new name: 'rob'
 
-    assert_equal (HexletCode.form_for user do |f|
-                    f
-                  end), "<form action=\"#\" method=\"post\">\n</form>"
-    assert_equal (HexletCode.form_for user, url: '/users' do |f|
-                    f
-                  end), "<form action=\"/users\" method=\"post\">\n</form>"
+    result1 = HexletCode.form_for user do |f|
+      f
+    end
+    result2 = HexletCode.form_for user, url: '/users' do |f|
+      f
+    end
+
+    assert_equal result1, "<form action=\"#\" method=\"post\">\n</form>"
+    assert_equal result2, "<form action=\"/users\" method=\"post\">\n</form>"
   end
 
   def test_form_for_input
     user_struct = Struct.new(:name, :job, :gender, keyword_init: true)
     user = user_struct.new name: 'rob', job: 'hexlet', gender: 'm'
 
-    assert_equal (HexletCode.form_for user do |f|
-                    f.input :name
-                    f.input :job, as: :text
-                  end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
-  <input class=\"user-input\" name=\"name\" type=\"text\" value=\"rob\">\n  <label for=\"job\">Job</label>
-  <textarea cols=\"50\" rows=\"50\" name=\"job\">hexlet</textarea>
-</form>"
+    result = HexletCode.form_for user do |f|
+      f.input :name
+      f.input :job, as: :text
+    end
+
+    expected = File.open('./test/fixtures/hexlet_code_1.txt').read
+
+    assert_equal result, expected
   end
 
   def test_form_for_submit
     user_struct = Struct.new(:name, :job, keyword_init: true)
     user = user_struct.new job: 'hexlet'
 
-    assert_equal (HexletCode.form_for user do |f|
+    result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job
       f.submit
-    end), "<form action=\"#\" method=\"post\">\n  <label for=\"name\">Name</label>
-  <input class=\"user-input\" name=\"name\" type=\"text\">\n  <label for=\"job\">Job</label>
-  <input class=\"user-input\" name=\"job\" type=\"text\" value=\"hexlet\">
-  <input name=\"commit\" type=\"submit\" value=\"Save\">\n</form>"
+    end
+
+    expected = File.open('./test/fixtures/hexlet_code_2.txt').read
+
+    assert_equal result, expected
   end
 end
 
 test_methods = HexletCodeTest.new({}).methods.select { |method| method.start_with? 'test_' }
-raise 'StackTest has not tests!' if test_methods.empty?
+raise 'HexletCode has not tests!' if test_methods.empty?

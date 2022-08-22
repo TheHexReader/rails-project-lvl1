@@ -5,13 +5,15 @@ require_relative 'hexlet_code/version'
 # HexletCode module
 module HexletCode
   autoload :Tag, 'hexlet_code/tag.rb'
-  autoload :HexletCode, 'hexlet_code/form_builder.rb'
+  autoload :FormFormer, 'hexlet_code/form_former.rb'
+  autoload :HTMLRenderer, 'hexlet_code/html_renderer.rb'
+
   def self.form_for(item, **args)
-    @entity = item
-    @result = []
+    HexletCode::FormFormer.entity = item
+    HexletCode::FormFormer.result = []
 
-    yield(HexletCode)
+    yield(HexletCode::FormFormer)
 
-    build_form(@result, args)
+    HexletCode::HTMLRenderer.render(args)
   end
 end
