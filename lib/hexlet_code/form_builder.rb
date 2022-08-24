@@ -10,7 +10,7 @@ module HexletCode
     end
 
     def self.input(name, **args)
-      @entity.public_send(name)
+      # @entity.public_send(name)
       @result << { tag: 'label', attrs: { for: name }, inner: name.to_s.capitalize }
       if args[:as].nil?
         process_input_as_input(name)
