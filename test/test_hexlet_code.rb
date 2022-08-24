@@ -29,7 +29,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job, as: :text
     end
 
-    expected = File.read('./test/fixtures/hexlet_code_1.txt')
+    expected = TestCase.load_fixture('hexlet_code_1.html')
 
     assert_equal result, expected
   end
@@ -44,11 +44,8 @@ class HexletCodeTest < Minitest::Test
       f.submit
     end
 
-    expected = File.read('./test/fixtures/hexlet_code_2.txt')
+    expected = TestCase.load_fixture('hexlet_code_2.html')
 
     assert_equal result, expected
   end
 end
-
-test_methods = HexletCodeTest.new({}).methods.select { |method| method.start_with? 'test_' }
-raise 'HexletCode has not tests!' if test_methods.empty?

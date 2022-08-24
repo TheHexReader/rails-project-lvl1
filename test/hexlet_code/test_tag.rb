@@ -14,6 +14,3 @@ class HexletCodeTest < Minitest::Test
     assert_equal HexletCode::Tag.build('div'), '<div></div>'
   end
 end
-
-test_methods = HexletCodeTest.new({}).methods.select { |method| method.start_with? 'test_' }
-raise 'HexletCode has not tests!' if test_methods.empty?

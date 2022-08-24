@@ -3,9 +3,9 @@
 # Module HexletCode
 module HexletCode
   # HTML renderer class
-  class HTMLRenderer
+  class HtmlRenderer
     def self.render(args)
-      for_render = HexletCode::FormFormer.result
+      for_render = HexletCode::FormBuilder.result
       inner_form = []
       for_render.each do |item|
         inner_form << HexletCode::Tag.build(item[:tag], **item[:attrs]) { item[:inner] }
