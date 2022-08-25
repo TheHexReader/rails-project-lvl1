@@ -9,11 +9,12 @@ module HexletCode
   autoload :HtmlRenderer, 'hexlet_code/html_renderer.rb'
 
   def self.form_for(item, **args)
-    HexletCode::FormBuilder.entity = item
-    HexletCode::FormBuilder.result = []
+    form_builder = HexletCode::FormBuilder.new
+    form_builder.entity = item
+    form_builder.result = []
 
-    yield(HexletCode::FormBuilder)
+    yield(form_builder)
 
-    HexletCode::HtmlRenderer.render(args)
+    HexletCode::HtmlRenderer.render(form_builder, args)
   end
 end
