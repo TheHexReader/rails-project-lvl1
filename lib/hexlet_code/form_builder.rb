@@ -27,7 +27,7 @@ module HexletCode
     end
 
     def process_input_as_input(tag_name, public_send_result, args)
-      args_for_input_build = { class: 'user-input', name: tag_name, type: 'text', **args }
+      args_for_input_build = { name: tag_name, type: 'text', **args }
       args_for_input_build[:value] = public_send_result unless public_send_result.nil?
       @result << { tag: 'input', attrs: args_for_input_build, inner: nil }
     end
