@@ -21,8 +21,8 @@ module HexletCode
       end
     end
 
-    def submit(value = 'Save', **args)
-      args_for_submit_build = { name: 'commit', type: 'submit', value: value, **args }
+    def submit(tag_value = 'Save', **args)
+      args_for_submit_build = { name: 'commit', type: 'submit', value: tag_value, **args }
       @result << { has_label: false, tag: 'input', attrs: args_for_submit_build, inner: nil }
     end
 
