@@ -4,7 +4,7 @@ require_relative 'test_helper'
 require_relative '../lib/hexlet_code'
 
 # Test Hexlet_code
-class HexletCodeTest < Minitest::Test
+class HexletCodeTest < TestCase
   def test_form_for
     user_struct = Struct.new(:name, :job, keyword_init: true)
     user = user_struct.new name: 'rob'
@@ -29,7 +29,7 @@ class HexletCodeTest < Minitest::Test
       f.input :job, as: :text
     end
 
-    expected = TestCase.load_fixture('hexlet_code_1.html')
+    expected = load_fixture('hexlet_code_1.html')
 
     assert_equal result, expected
   end
@@ -44,7 +44,7 @@ class HexletCodeTest < Minitest::Test
       f.submit
     end
 
-    expected = TestCase.load_fixture('hexlet_code_2.html')
+    expected = load_fixture('hexlet_code_2.html')
 
     assert_equal result, expected
   end

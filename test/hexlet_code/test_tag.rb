@@ -4,7 +4,7 @@ require_relative '../test_helper'
 require_relative '../../lib/hexlet_code'
 
 # Test Hexlet_code
-class HexletCodeTest < Minitest::Test
+class HexletCodeTest < TestCase
   def test_tag_build
     assert_equal HexletCode::Tag.build('br'), '<br>'
     assert_equal HexletCode::Tag.build('img', src: 'path/to/image'), '<img src="path/to/image">'

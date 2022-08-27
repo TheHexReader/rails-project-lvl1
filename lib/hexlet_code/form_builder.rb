@@ -7,36 +7,36 @@ module HexletCode
     attr_writer :entity
     attr_accessor :result
 
-    # def initialize
-
-    # end
+    def initialize(item, result)
+      @entity = item
+      @result = result
+    end
 
     def input(name, **args)
-      public_send_result = @entity.public_send(name)
-      @result << { tag: 'label', attrs: { for: name }, inner: name.to_s.capitalize }
+      get_attr_value = @entity.public_send(name)
       if args[:as].nil?
-        process_input_as_input(name, public_send_result, args.except(:as))
+        process_input_as_input(name, get_attr_value, args.except(:as))
       elsif args[:as] == :text
-        process_input_as_text(name, public_send_result, args.except(:as))
+        process_input_as_text(name, get_attr_value, args.except(:as))
       end
     end
 
-    def submit(value = nil, **args)
-      args_for_submit_build = { name: 'commit', type: 'submit', value: value.nil? ? 'Save' : value, **args }
-      @result << { tag: 'input', attrs: args_for_submit_build, inner: nil }
+    def submit(value = 'Save', **args)
+      args_for_submit_build = { name: 'commit', type: 'submit', value: value, **args }
+      @result << { has_label: false, tag: 'input', attrs: args_for_submit_build, inner: nil }
     end
 
-    def process_input_as_input(tag_name, public_send_result, args)
+    def process_input_as_input(tag_name, get_attr_value, args)
       args_for_input_build = { name: tag_name, type: 'text', **args }
-      args_for_input_build[:value] = public_send_result unless public_send_result.nil?
-      @result << { tag: 'input', attrs: args_for_input_build, inner: nil }
+      args_for_input_build[:value] = get_attr_value unless get_attr_value.nil?
+      @result << { has_label: true, tag: 'input', attrs: args_for_input_build, inner: nil }
     end
 
-    def process_input_as_text(tag_name, public_send_result, args)
+    def process_input_as_text(tag_name, get_attr_value, args)
       args_for_text_build = { name: tag_name, **args }
       args_for_text_build[:cols] ||= '50'
       args_for_text_build[:rows] ||= '50'
-      @result << { tag: 'textarea', attrs: args_for_text_build, inner: public_send_result }
+      @result << { has_label: true, tag: 'textarea', attrs: args_for_text_build, inner: get_attr_value }
     end
   end
 end
