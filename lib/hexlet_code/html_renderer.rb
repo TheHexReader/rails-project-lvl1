@@ -5,15 +5,10 @@ module HexletCode
   # HTML renderer class
   class HtmlRenderer
     def self.render(form_builder, args)
-      for_render = form_builder.result
-      inner_form = []
+      form_items = form_builder.result.map { |item| decide_how_to_render(item) }.flatten
 
-      for_render.each do |item|
-        inner_form = [*inner_form, *decide_how_to_render(item)]
-      end
-
-      inner_form = inner_form.map { |item| "  #{item}\n" }
-      HexletCode::Tag.build('form', **parse_form_args(args)) { "\n#{inner_form.join}" }
+      form_items = form_items.map { |item| "  #{item}\n" }
+      HexletCode::Tag.build('form', **parse_form_args(args)) { "\n#{form_items.join}" }
     end
 
     def self.parse_form_args(args)
